@@ -1,0 +1,17 @@
+initialise		movlw	7
+			movwf	1fh	                      ;cmcon = 7,disable comp
+			bsf		3,5		;go to bank1
+			bsf		5,0		;RA0 = input
+			bcf		6,4		;RB4 = output
+			bcf		6,7		;RB7 = output		
+			bcf		3,5		;go to bank0
+led1on2off		bcf		6,4	        ;led1 on, s1 initially open
+			bcf		6,7		;led2 off
+released		btfsc		5,0		;s1 pressed?
+			goto		released	;no
+			bsf		6,4		;led1 off
+			bsf		6,7		;led2 on		
+pressed		btfsc		5,0		;s1 released?
+			goto		led1on2 off	;no
+			goto		pressed
+			end
